@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamesang Pinoy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('/media/food_images/bg.png');
+            background-position: bottom;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #fff;
+            height: 800px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            height: 25px;
+        }
+
+        .food-name {
+            letter-spacing: 12px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+        
+        .header-div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-button-div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-line-break{
+            width: 4px;
+            height: 26px;
+            background-color: #000;
+            margin-left: 24px;
+            margin-right: 12px;
+        }
+
+        .category-name {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            letter-spacing: 8px;
+        }
+
+        .icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        h2 {
+            border-bottom: 2px solid currentColor
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        nav i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .menu-item {
+            width: 250px;
+            height: 500px;
+            position: relative;
+            text-align: center;
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .food-img {
+            object-fit: cover;
+        }
+
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .menu-item a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .line-div {
+            width: 100%;
+            height: 2px;
+            border-radius: 4px;
+            background-color: #000;
+            margin-bottom: 12px;
+        }
+
+        .food-actions {
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 12px;
+        }
+
+        .food-actions i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        #add-food-btn {
+            width: 150px;
+            background-color: #000;
+            border-color: #000;
+        }
+
+        footer {
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-danger {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: gray;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: darkred;
+        }
+
+        .btn-cancel:hover {
+            background-color: darkgray;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" style="align-items: center">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="header-div">
+            <div class="back-button-div">
+                <div class="icon">
+                    <i class="fa-regular fa-circle-left" onclick="window.location.href='{% url 'food_category_list' %}'"></i>
+                </div>
+                <div class="category-name">
+                    <div class="category-line-break"></div>
+                    {{ category|capfirst }}
+                </div>
+            </div>
+            
+            <nav>
+                {% if category|lower == "almusal" %}
+                    <li><a href="{% url 'foods_by_category' category='tanghalian' %}">TANGHALIAN</a></li>
+                    <li><a href="{% url 'foods_by_category' category='hapunan' %}">HAPUNAN</a></li>
+                    <li><a href="{% url 'foods_by_category' category='meryenda' %}">MERYENDA</a></li>
+                {% elif category|lower == "tanghalian" %}
+                    <li><a href="{% url 'foods_by_category' category='almusal' %}">ALMUSAL</a></li>
+                    <li><a href="{% url 'foods_by_category' category='hapunan' %}">HAPUNAN</a></li>
+                    <li><a href="{% url 'foods_by_category' category='meryenda' %}">MERYENDA</a></li>
+                {% elif category|lower == "hapunan" %}
+                    <li><a href="{% url 'foods_by_category' category='almusal' %}">ALMUSAL</a></li>
+                    <li><a href="{% url 'foods_by_category' category='tanghalian' %}">TANGHALIAN</a></li>
+                    <li><a href="{% url 'foods_by_category' category='meryenda' %}">MERYENDA</a></li>
+                {% elif category|lower == "meryenda" %}
+                    <li><a href="{% url 'foods_by_category' category='almusal' %}">ALMUSAL</a></li>
+                    <li><a href="{% url 'foods_by_category' category='tanghalian' %}">TANGHALIAN</a></li>
+                    <li><a href="{% url 'foods_by_category' category='hapunan' %}">HAPUNAN</a></li>
+                {% endif %}
+            </nav>            
+        </div>
+
+        <div class="add-btn">
+            {% if user.is_superuser %}
+                <a href="{% url 'food_create' category=category %}" class="btn btn-primary" id="add-food-btn">Add Food</a>
+            {% endif %}
+        </div>              
+
+        <section class="menu">
+            {% for food in foods %}
+            <div class="menu-item">
+                <a href="{% url 'food_detail' food.id %}">
+                    <img src="{% if food.image %}{{ food.image.url }}{% else %}/static/images/placeholder.png{% endif %}" 
+                    alt="{{ food.name }}" 
+                    class="food-img">
+
+                    <div class="food-name">{{ food.name }}</div>
+                    <div class="line-div"></div>
+                    <div class="food-actions">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comment"></i>
+                    </div>
+                </a>
+                {% if user.is_superuser %}
+                    <i class="fa-solid fa-trash" style="color: red; cursor: pointer; margin-left: 140px; position: relative; top: -22px; font-size: 24px;" onclick="showModal({{ food.pk }})"></i>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Are you sure you want to delete this item?</h2>
+            <form id="deleteForm" method="POST">
+                {% csrf_token %}
+                <button type="button" class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            </form>
+        </div>
+    </div>    
+</body>
+<script>
+    function showModal(pk) {
+        const form = document.getElementById('deleteForm');
+        form.action = `/posts/food/${pk}/delete/`; // Dynamically set the form action
+        document.getElementById('deleteModal').style.display = 'flex'; // Show the modal
+    }
+
+    function closeModal() {
+        document.getElementById('deleteModal').style.display = 'none'; // Hide the modal
+    }
+</script>
+</html>

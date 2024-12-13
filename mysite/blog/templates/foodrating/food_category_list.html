@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamesang Pinoy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('/media/food_images/bg.png');
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 25px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+        }
+        
+        .page-name {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            gap: 64px;
+        }
+
+        h4 {
+            margin: 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 24px;
+            border-bottom: 2px solid currentColor;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        nav i {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .menu-item {
+            width: 250px;
+            height: 500px;
+            position: relative;
+            text-align: center;
+        }
+
+        .menu-item img {
+            object-fit: cover;
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .menu-item a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        span {
+            letter-spacing: 12px;
+            font-size: 14px;
+        }
+
+        .line {
+            width: 50%;
+            height: 2px;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        footer {
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" style="align-items: center">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="page-name">
+            <div class="title">
+                <h1>Lamesang </h1>
+                <h2>Pinoy</h2>
+            </div>
+            <div class="nav-menu">
+                <h4>Order</h4>
+                <h4>Reservation</h4>
+                <h4>Recipe</h4>
+                <h4>About Us</h4>
+            </div>
+            <nav>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-instagram"></i>
+            </nav>
+        </div>
+
+        <section class="menu">
+            <div class="menu-item">
+                <a href="{% url 'foods_by_category' category='almusal' %}">
+                    <img src="/media/food_images/almusal.jpg" alt="Almusal">
+                    <span>ALMUSAL</span>
+                    <div class="line"></div>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="{% url 'foods_by_category' category='tanghalian' %}" >
+                    <img src="/media/food_images/tanghalian.jpg" alt="Tanghalian">
+                    <span>TANGHALIAN</span>
+                    <div class="line"></div>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="{% url 'foods_by_category' category='hapunan' %}">
+                    <img src="/media/food_images/hapunan.jpg" alt="Hapunan">
+                    <span>HAPUNAN</span>
+                    <div class="line"></div>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="{% url 'foods_by_category' category='meryenda' %}">
+                    <img src="/media/food_images/meryenda.jpg" alt="Meryenda">
+                    <span>MERYENDA</span>
+                    <div class="line"></div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
